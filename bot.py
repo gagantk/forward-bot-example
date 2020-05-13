@@ -12,7 +12,6 @@ client.start()
 
 @client.on(events.NewMessage(chats=FROMM))
 async def main(event):
-    print(event)
     await client.forward_messages(TO, event.message)
 
 with client:
