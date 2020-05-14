@@ -4,13 +4,14 @@ import os
 
 api_id = int(os.environ.get('API_ID', 6))
 api_hash = os.environ.get('API_HASH', 'eb06d4abfb49dc3eeb1aeb98ae0f581e')
-FROMM = int(os.environ.get('FROMM', 10))
+FROMM = os.environ.get('FROMM')
+FROMM_LIST = [int(id) for id in FROMM.split(', ')]
 TO = int(os.environ.get('TO', 10))
 HU_STRING_SESSION = os.environ.get('HU_STRING_SESSION', None)
 client = TelegramClient(StringSession(HU_STRING_SESSION), api_id, api_hash)
 client.start()
 
-@client.on(events.NewMessage(chats=FROMM))
+@client.on(events.NewMessage(chats=FROMM_LIST))
 async def main(event):
     await client.forward_messages(TO, event.message)
 
